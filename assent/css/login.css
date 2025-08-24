@@ -1,0 +1,220 @@
+/* ===== Tipos & paleta ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+:root{
+  --bg-blur: 6px;
+  --txt-strong: #1f2230;
+  --txt-muted:  #6b6f7d;
+
+  /* San Valentín */
+  --rose:   #ff4d6d;
+  --rose-2: #ff99ac;
+  --violet: #7a5cff;
+  --btn-shadow: rgba(255,77,109,0.35);
+}
+
+/* ===== Video de fondo (responsive y accesible) ===== */
+#bg-video {
+  position: fixed;
+  inset: 0;                  /* top/left/right/bottom: 0 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* rellena sin deformar */
+  z-index: -1;               /* al fondo */
+  pointer-events: none;      /* no bloquea clics */
+  will-change: transform;    /* suaviza scroll en algunos móviles */
+}
+
+/* Si el usuario prefiere menos animación, ocultamos el video */
+@media (prefers-reduced-motion: reduce) {
+  #bg-video { display: none; }
+  body { background: #000; } /* color de respaldo */
+}
+
+/* ===== Layout base centrado ===== */
+body {
+  margin: 0;
+  /* Alturas modernas para evitar la barra de URL móvil */
+  min-height: 100dvh;
+  min-height: 100svh;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Padding seguro para notches y barras (iOS/Android) */
+  padding:
+    max(16px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right))
+    max(16px, env(safe-area-inset-bottom))
+    max(16px, env(safe-area-inset-left));
+
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--txt-strong);
+}
+
+/* ===== Card ===== */
+.card {
+  background: rgba(255,255,255,0.86);
+  -webkit-backdrop-filter: blur(var(--bg-blur));
+  backdrop-filter: blur(var(--bg-blur));
+
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.22);
+
+  width: 100%;
+  max-width: 360px;          /* ↓ más pequeña */
+  padding: 1.5rem;
+  text-align: center;
+
+  /* Evita desbordes si metes inputs grandes */
+  box-sizing: border-box;
+}
+
+/* Título romántico */
+.card h5{
+  margin: 0 0 .4rem;
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: var(--rose);
+  letter-spacing: .2px;
+
+  /* 👇 ajustes de centrado */
+  text-align: center;
+  line-height: 1.2;
+  display: block;
+}
+
+/* Texto secundario */
+.card p{
+  margin: 0 0 1rem;
+  color: var(--txt-muted);
+  font-weight: 500;
+
+  /* 👇 centrado consistente en móvil */
+  text-align: center;
+}
+
+/* Texto secundario */
+.card p{
+  margin: 0 0 1rem;
+  color: var(--txt-muted);
+  font-weight: 500;
+}
+
+/* ===== Inputs (pulidos y temáticos) ===== */
+.form-control{
+  border-radius: 12px;
+  border: 2px solid #ffd6e0;
+  padding: .7rem .9rem;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  transition: border-color .2s, box-shadow .2s;
+}
+.form-control::placeholder{ color:#a6abbb; }
+.form-control:focus{
+  border-color: var(--rose);
+  box-shadow:
+    0 0 0 3px rgba(255,77,109,0.18),
+    0 6px 20px rgba(0,0,0,0.06);
+}
+
+/* ===== Botón San Valentín ===== */
+.btn-custom{
+  width: 100%;
+  border: none;
+  border-radius: 50px;
+  padding: .7rem 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--rose), var(--violet));
+  box-shadow: 0 10px 24px var(--btn-shadow);
+  transition: transform .06s ease, filter .18s ease, box-shadow .18s ease;
+}
+.btn-custom:hover{
+  filter: brightness(1.05);
+  background: linear-gradient(135deg, #ff3366, var(--violet));
+  box-shadow: 0 12px 28px rgba(255,77,109,0.45);
+}
+.btn-custom:active{ transform: translateY(1px); }
+.btn-custom:focus-visible{
+  outline: 3px solid rgba(255,77,109,0.4);
+  outline-offset: 2px;
+}
+
+/* ===== Teléfonos pequeños (≤ 480px) ===== */
+@media (max-width: 480px) {
+  body {
+    /* un poco más de respiro en móviles */
+    padding:
+      max(12px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      max(12px, env(safe-area-inset-bottom))
+      max(12px, env(safe-area-inset-left));
+  }
+
+  .card {
+    max-width: calc(100% - 8px);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: left;        /* lectura más natural en pantallas chicas */
+    box-shadow: 0 8px 22px rgba(0,0,0,0.2);
+  }
+
+  /* Si tienes inputs/botones dentro de la card, esto ayuda en móvil */
+  .card input,
+  .card select,
+  .card button {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* ===== Pantallas medianas (tablets ≥ 768px) ===== */
+@media (min-width: 768px) {
+  .card {
+    max-width: 420px;        /* tamaño moderado en tablet */
+    padding: 1.75rem;
+  }
+}
+
+/* ===== Escritorio grande (≥ 1024px) ===== */
+@media (min-width: 1024px) {
+  .card {
+    max-width: 460px;        /* sigue compacta, pero aire en desktop */
+  }
+}
+
+/* ===== Alturas bajas / landscape en móvil ===== */
+@media (max-height: 600px) and (orientation: landscape) {
+  body {
+    align-items: flex-start;
+  }
+  .card {
+    margin-top: 24px;
+  }
+}
+
+/* ===== Extra: evita “saltos” cuando aparece el teclado en mobile ===== */
+@supports (height: 100dvh) {
+  body { min-height: 100dvh; }
+}
+
+/* ===== Detallito: corazones sutiles arriba ===== */
+body::before {
+  content: "❤ ❤ ❤";
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.6rem;
+  color: rgba(255,77,109,0.6);
+  animation: floatHearts 5s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+@keyframes floatHearts {
+  0%   { transform: translateX(-50%) translateY(0);    opacity: .55; }
+  100% { transform: translateX(-50%) translateY(-24px); opacity: .95; }
+}
