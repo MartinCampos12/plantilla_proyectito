@@ -145,17 +145,26 @@ textarea.form-control:focus{
   white-space: pre-line;
 }
 
-/* ===== Responsivo ===== */
-@media (max-width: 576px){
-  .photo-card{
-    aspect-ratio: auto;       /* no forzar relación en móvil */
-    background: #fff;
-  }
-  .photo-card img{
-    width: 100%;
-    height: auto;             /* deja que se ajuste sola */
-    object-fit: contain;      /* muestra la imagen completa */
-    object-position: center;
-    display: block;
-  }
+/* ===== Responsivo: aspect ratio por breakpoint ===== */
+/* Base: móviles pequeños (por defecto) */
+/* Base: móviles pequeños */
+.photo-card{
+  aspect-ratio: 4 / 5;   /* vertical agradable */
+}
+.photo-card img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* ≥ 576px (teléfonos grandes / tablets chicas) */
+@media (min-width: 576px){
+  .photo-card{ aspect-ratio: 3 / 4; }
+}
+
+/* ≥ 992px (desktop en adelante) */
+@media (min-width: 992px){
+  .photo-card{ aspect-ratio: 3 / 4; }  /* mantenemos vertical en PC */
 }
