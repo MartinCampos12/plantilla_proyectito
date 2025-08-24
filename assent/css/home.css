@@ -49,20 +49,14 @@ body{
 .photo-card img{
   display: block;
   width: 100%;
-  height: 100%;       /* ahora ocupa toda la card */
-  object-fit: cover;  /* se adapta sin deformarse */
+  height: 100%;
+  object-fit: cover;  /* llena la card sin deformarse (recorta si hace falta) */
+  object-position: center;
 }
 
 .photo-card:hover{
   transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(0,0,0,.18);
-}
-
-/* Responsivo */
-@media (max-width: 480px){
-  .photo-card{
-    aspect-ratio: 3 / 5; /* 👈 en móvil, más alargado */
-  }
 }
 
 /* Badge de nota (corazón) */
@@ -148,10 +142,20 @@ textarea.form-control:focus{
   font-size: 1.05rem;
   line-height: 1.6;
   color: var(--ink);
-  white-space: pre-line; /* mantiene saltos de línea si quieres */
+  white-space: pre-line;
 }
 
-/* Responsivo */
-@media (max-width: 480px){
-  .photo-card img{ height: 140px; }
+/* ===== Responsivo ===== */
+@media (max-width: 576px){
+  .photo-card{
+    aspect-ratio: auto;       /* no forzar relación en móvil */
+    background: #fff;
+  }
+  .photo-card img{
+    width: 100%;
+    height: auto;             /* deja que se ajuste sola */
+    object-fit: contain;      /* muestra la imagen completa */
+    object-position: center;
+    display: block;
+  }
 }
