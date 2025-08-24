@@ -42,15 +42,15 @@ body{
   background: #fff;
   transition: transform .18s ease, box-shadow .18s ease;
 
-  /* 👇 Mantiene proporción uniforme (ancho:alto) */
-  aspect-ratio: 3 / 4; /* puedes probar 4/5, 16/9, etc. */
+  /* relación base */
+  aspect-ratio: 3 / 4;
 }
 
 .photo-card img{
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;  /* llena la card sin deformarse (recorta si hace falta) */
+  object-fit: cover;  /* llena la card */
   object-position: center;
 }
 
@@ -145,26 +145,36 @@ textarea.form-control:focus{
   white-space: pre-line;
 }
 
-/* ===== Responsivo: aspect ratio por breakpoint ===== */
-/* Base: móviles pequeños (por defecto) */
-/* Base: móviles pequeños */
+/* ===== Responsivo ===== */
+
+/* Base: móviles comunes */
 .photo-card{
   aspect-ratio: 4 / 5;   /* vertical agradable */
 }
 .photo-card img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
+  object-fit: cover;     /* llena la card */
 }
 
-/* ≥ 576px (teléfonos grandes / tablets chicas) */
+/* Teléfonos grandes / tablets chicas */
 @media (min-width: 576px){
   .photo-card{ aspect-ratio: 3 / 4; }
 }
 
-/* ≥ 992px (desktop en adelante) */
+/* Desktop */
 @media (min-width: 992px){
-  .photo-card{ aspect-ratio: 3 / 4; }  /* mantenemos vertical en PC */
+  .photo-card{ aspect-ratio: 3 / 4; }
+}
+
+/* Excepción: móviles MUY verticales (ej: 20:9 o más) → no recortar */
+@media (max-width: 576px) and (max-aspect-ratio: 10/19){
+  .photo-card{
+    aspect-ratio: auto;      /* libera altura */
+    background: #fff;
+  }
+  .photo-card img{
+    width: 100%;
+    height: auto;
+    object-fit: contain;     /* no recorta nada */
+    object-position: center;
+  }
 }
